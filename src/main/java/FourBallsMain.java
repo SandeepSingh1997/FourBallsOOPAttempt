@@ -1,15 +1,23 @@
 import processing.core.PApplet;
 
-public class FourBallsMain extends PApplet{
+import java.util.ArrayList;
+
+public class FourBallsMain extends PApplet {
 
     public static final int WIDTH = 800;
     public static final int HEIGHT = 500;
     public static final int INITIAL_XPOSITION = 0;
     public static final int DIAMETER = 10;
 
-    private Ball ball1, ball2, ball3, ball4;
+    private static final int SPEED1 = 1;
+    private static final int SPEED2 = 2;
+    private static final int SPEED3 = 3;
+    private static final int SPEED4 = 4;
 
-    public static void main(String[] args){
+
+    private ArrayList<Ball> ballList = new ArrayList<>();
+
+    public static void main(String[] args) {
         PApplet.main("FourBallsMain", args);
     }
 
@@ -21,25 +29,18 @@ public class FourBallsMain extends PApplet{
 
     @Override
     public void setup() {
-        ball1 = new Ball(INITIAL_XPOSITION,HEIGHT/5, DIAMETER, 1);
-        ball2 = new Ball(INITIAL_XPOSITION, 2 * HEIGHT/5, DIAMETER, 2);
-        ball3 = new Ball(INITIAL_XPOSITION, 3 * HEIGHT/5, DIAMETER, 3);
-        ball4 = new Ball(INITIAL_XPOSITION, 4 * HEIGHT/5, DIAMETER, 4);
+        ballList.add(new Ball(INITIAL_XPOSITION, HEIGHT / 5, DIAMETER, SPEED1));
+        ballList.add(new Ball(INITIAL_XPOSITION, 2 * HEIGHT / 5, DIAMETER, SPEED2));
+        ballList.add(new Ball(INITIAL_XPOSITION, 3 * HEIGHT / 5, DIAMETER, SPEED3));
+        ballList.add(new Ball(INITIAL_XPOSITION, 4 * HEIGHT / 5, DIAMETER, SPEED4));
     }
 
     @Override
     public void draw() {
-       drawFrame();
+        for (Ball ball : ballList) {
+            ball.draw(this);
+        }
     }
 
-    public void drawFrame(){
-        moveByOneFrame(ball1);
-        moveByOneFrame(ball2);
-        moveByOneFrame(ball3);
-        moveByOneFrame(ball4);
-    }
 
-    public void moveByOneFrame(Ball ball){
-        ellipse(ball.getxPosition(), ball.getyPosition(), ball.getDiameter(), ball.getDiameter());
-    }
 }
